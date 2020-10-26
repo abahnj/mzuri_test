@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:mzuri_test/constants.dart';
 
@@ -11,23 +9,18 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return ConstrainedBox(
-      constraints: BoxConstraints(maxHeight: 812, maxWidth: 375),
-      child: Center(
-        child: MaterialApp(
-          title: 'Flutter Demo',
-          theme: ThemeData(
-            primarySwatch: Colors.blue,
-          ),
-          home: Profile(),
-          routes: {
-            'profile': (context) => Profile(),
-            'personalDetails': (context) => PersonalDetails(),
-            'businessDetails': (context) => BusinessDetails(),
-            'addBusiness': (context) => AddBusiness()
-          },
-        ),
+    return MaterialApp(
+      title: 'Flutter Demo',
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
       ),
+      home: Profile(),
+      routes: {
+        'profile': (context) => Profile(),
+        'personalDetails': (context) => PersonalDetails(),
+        'businessDetails': (context) => BusinessDetails(),
+        'addBusiness': (context) => AddBusiness()
+      },
     );
   }
 }
@@ -35,104 +28,107 @@ class MyApp extends StatelessWidget {
 class Profile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    log('${MediaQuery.of(context).size.height} ${MediaQuery.of(context).size.width}');
-
-    return Scaffold(
-      backgroundColor: Color(0xfffafafa),
-      body: Stack(
-        children: [
-          Container(
-            height: 140,
-            decoration: BoxDecoration(
-              gradient: LinearGradient(
-                colors: [
-                  Color(0xff0ca1db),
-                  Color(0xff0477a3),
-                ],
-                begin: Alignment.topCenter,
-                end: Alignment.bottomCenter,
-              ),
-            ),
-          ),
-          Avatar(),
-          SafeArea(
-            child: Stack(
-              children: [
-                AppBar(),
-                Positioned(
-                  top: 128,
-                  left: 0,
-                  right: 0,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      SizedBox(
-                        height: 24,
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 16),
-                        child: Text(
-                          'PERSONAL',
-                          style: titleStyle,
-                        ),
-                      ),
-                      ListTile(
-                        tileColor: Color(0xffffffff),
-                        title: Text(
-                          'Personal Details',
-                        ),
-                        onTap: () =>
-                            Navigator.pushNamed(context, 'personalDetails'),
-                        trailing: Icon(Icons.keyboard_arrow_right),
-                      ),
-                      ListTile(
-                        tileColor: Color(0xffffffff),
-                        title: Text(
-                          'Change Password',
-                        ),
-                        trailing: Icon(Icons.keyboard_arrow_right),
-                      ),
-                      SizedBox(
-                        height: 24,
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 16),
-                        child: Text(
-                          'Business',
-                          style: titleStyle,
-                        ),
-                      ),
-                      ListTile(
-                        tileColor: Color(0xffffffff),
-                        title: Text(
-                          'Ada & Sons',
-                        ),
-                        onTap: () =>
-                            Navigator.pushNamed(context, 'businessDetails'),
-                        trailing: Icon(Icons.keyboard_arrow_right),
-                      ),
-                      ListTile(
-                        tileColor: Color(0xffffffff),
-                        leading: Icon(
-                          Icons.add,
-                          color: blue,
-                        ),
-                        onTap: () =>
-                            Navigator.pushNamed(context, 'addBusiness'),
-                        title: Text(
-                          'Add Business',
-                          style: TextStyle(
-                            color: blue,
-                          ),
-                        ),
-                      ),
+    return ConstrainedBox(
+      constraints: BoxConstraints(maxHeight: 812, maxWidth: 375),
+      child: Center(
+        child: Scaffold(
+          backgroundColor: Color(0xfffafafa),
+          body: Stack(
+            children: [
+              Container(
+                height: 140,
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                    colors: [
+                      Color(0xff0ca1db),
+                      Color(0xff0477a3),
                     ],
+                    begin: Alignment.topCenter,
+                    end: Alignment.bottomCenter,
                   ),
-                )
-              ],
-            ),
-          )
-        ],
+                ),
+              ),
+              Avatar(),
+              SafeArea(
+                child: Stack(
+                  children: [
+                    AppBar(),
+                    Positioned(
+                      top: 128,
+                      left: 0,
+                      right: 0,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          SizedBox(
+                            height: 24,
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 16),
+                            child: Text(
+                              'PERSONAL',
+                              style: titleStyle,
+                            ),
+                          ),
+                          ListTile(
+                            tileColor: Color(0xffffffff),
+                            title: Text(
+                              'Personal Details',
+                            ),
+                            onTap: () =>
+                                Navigator.pushNamed(context, 'personalDetails'),
+                            trailing: Icon(Icons.keyboard_arrow_right),
+                          ),
+                          ListTile(
+                            tileColor: Color(0xffffffff),
+                            title: Text(
+                              'Change Password',
+                            ),
+                            trailing: Icon(Icons.keyboard_arrow_right),
+                          ),
+                          SizedBox(
+                            height: 24,
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 16),
+                            child: Text(
+                              'Business',
+                              style: titleStyle,
+                            ),
+                          ),
+                          ListTile(
+                            tileColor: Color(0xffffffff),
+                            title: Text(
+                              'Ada & Sons',
+                            ),
+                            onTap: () =>
+                                Navigator.pushNamed(context, 'businessDetails'),
+                            trailing: Icon(Icons.keyboard_arrow_right),
+                          ),
+                          ListTile(
+                            tileColor: Color(0xffffffff),
+                            leading: Icon(
+                              Icons.add,
+                              color: blue,
+                            ),
+                            onTap: () =>
+                                Navigator.pushNamed(context, 'addBusiness'),
+                            title: Text(
+                              'Add Business',
+                              style: TextStyle(
+                                color: blue,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    )
+                  ],
+                ),
+              )
+            ],
+          ),
+        ),
       ),
     );
   }
