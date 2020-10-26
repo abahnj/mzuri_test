@@ -1,5 +1,8 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:mzuri_test/constants.dart';
+import 'package:pin_code_text_field/pin_code_text_field.dart';
 
 void main() {
   runApp(MyApp());
@@ -9,18 +12,24 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
+    return Container(
+      height: 812,
+      width: 375,
+      child: MaterialApp(
+        title: 'Flutter Demo',
+        theme: ThemeData(
+          primarySwatch: Colors.blue,
+        ),
+        home: Profile(),
+        routes: {
+          'profile': (context) => Profile(),
+          'personalDetails': (context) => PersonalDetails(),
+          'businessDetails': (context) => BusinessDetails(),
+          'addBusiness': (context) => AddBusiness(),
+          'otpScreen': (context) => OTPScreen(),
+          'changePassword': (context) => ChangePassword(),
+        },
       ),
-      home: Profile(),
-      routes: {
-        'profile': (context) => Profile(),
-        'personalDetails': (context) => PersonalDetails(),
-        'businessDetails': (context) => BusinessDetails(),
-        'addBusiness': (context) => AddBusiness()
-      },
     );
   }
 }
@@ -84,6 +93,8 @@ class Profile extends StatelessWidget {
                             title: Text(
                               'Change Password',
                             ),
+                            onTap: () =>
+                                Navigator.pushNamed(context, 'otpScreen'),
                             trailing: Icon(Icons.keyboard_arrow_right),
                           ),
                           SizedBox(
@@ -329,25 +340,30 @@ class MzuriTextField extends StatelessWidget {
   final String title;
   final String text;
   final bool trailing;
+  final bool isPassword;
 
   MzuriTextField({
     this.enabled = false,
     @required this.title,
-    @required this.text,
+    this.text = '',
     this.trailing = false,
+    this.isPassword = false,
   });
 
   @override
   Widget build(BuildContext context) {
     return TextField(
       decoration: InputDecoration(
-          border: enabled ? OutlineInputBorder() : UnderlineInputBorder(),
+          border: enabled
+              ? OutlineInputBorder(borderSide: BorderSide(color: Colors.grey))
+              : UnderlineInputBorder(),
           labelText: title,
           labelStyle: TextStyle(color: enabled ? blue : Colors.black),
           isDense: true,
           enabled: enabled,
           suffixIcon: trailing ? Icon(Icons.keyboard_arrow_down) : null),
       controller: TextEditingController()..text = text,
+      obscureText: true,
     );
   }
 }
@@ -585,4 +601,260 @@ class AddBusiness extends StatelessWidget {
       ),
     );
   }
+}
+
+class OTPScreen extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: SafeArea(
+        child: Container(
+          margin: EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              editAppBar(context, true, null),
+              spacerH32,
+              Text(
+                'OTP Verification',
+                style: titleStyle,
+              ),
+              spacerH16,
+              Text(
+                  'An OTP code was sent to your phone and email kindly input the code below.'),
+              spacerH32,
+              Center(
+                child: PinCodeTextField(
+                  autofocus: true,
+                  controller: TextEditingController(),
+                  hideCharacter: true,
+                  highlight: true,
+                  highlightColor: Colors.blue,
+                  defaultBorderColor: Color(0xffeaeaea),
+                  hasTextBorderColor: Colors.green,
+                  maxLength: 4,
+                  pinBoxRadius: 4,
+                  hasError: false,
+                  maskCharacter: "😎",
+                  onTextChanged: (text) {},
+                  onDone: (text) {
+                    print("DONE $text");
+                  },
+                  pinBoxWidth: 48,
+                  pinBoxBorderWidth: 1,
+                  pinBoxHeight: 48,
+                  wrapAlignment: WrapAlignment.spaceAround,
+                  pinBoxDecoration: (
+                    Color borderColor,
+                    Color pinBoxColor, {
+                    double borderWidth = 2.0,
+                    double radius = 5.0,
+                  }) {
+                    return BoxDecoration(
+                      border: Border.all(
+                        color: borderColor,
+                        width: borderWidth,
+                      ),
+                      color: pinBoxColor,
+                      borderRadius: BorderRadius.circular(radius),
+                    );
+                  },
+                  pinTextStyle: TextStyle(fontSize: 22.0),
+                  pinTextAnimatedSwitcherTransition:
+                      ProvidedPinBoxTextAnimation.scalingTransition,
+                  pinBoxColor: Color(0xfff9f9f9),
+                  pinTextAnimatedSwitcherDuration: Duration(milliseconds: 300),
+                  //highlightAnimation: true,
+                  highlightAnimationBeginColor: Colors.black,
+                  highlightAnimationEndColor: Colors.white12,
+                  keyboardType: TextInputType.number,
+                ),
+              ),
+              spacerH32,
+              spacerH32,
+              spacerH32,
+              spacerH32,
+              Container(
+                width: double.infinity,
+                child: FlatButton(
+                  onPressed: () {
+                    Navigator.pushNamed(context, 'changePassword');
+                  },
+                  color: blue,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  child: Text(
+                    'Next',
+                    style: TextStyle(
+                      color: Colors.white,
+                    ),
+                  ),
+                ),
+              )
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class ChangePassword extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: SafeArea(
+        child: Container(
+          decoration: BoxDecoration(
+            border: Border(
+              top: BorderSide(
+                width: 2,
+                color: Color(0xfff5a623),
+              ),
+            ),
+          ),
+          child: Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                editAppBar(context, true, () {}),
+                spacerH32,
+                Text(
+                  'Change Password',
+                  style: titleStyle,
+                ),
+                spacerH32,
+                MzuriTextField(
+                  enabled: true,
+                  title: 'Old Password',
+                  isPassword: true,
+                ),
+                spacerH32,
+                MzuriTextField(
+                  enabled: true,
+                  title: 'New Password',
+                  isPassword: true,
+                ),
+                spacerH32,
+                MzuriTextField(
+                  enabled: true,
+                  title: 'Confirm Password',
+                  isPassword: true,
+                ),
+                spacerH32,
+                spacerH32,
+                Container(
+                  width: double.infinity,
+                  child: FlatButton(
+                    onPressed: () {
+                      showDialog(
+                          context: context,
+                          builder: (context) {
+                            log(MediaQuery.of(context).size.width.toString());
+                            return _showAlert(context);
+                          });
+                    },
+                    color: blue,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    child: Text(
+                      'Change Password',
+                      style: TextStyle(
+                        color: Colors.white,
+                      ),
+                    ),
+                  ),
+                )
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+AlertDialog _showAlert(BuildContext context) {
+  return AlertDialog(
+    content: new Container(
+      width: 260.0,
+      height: 260.0,
+      decoration: new BoxDecoration(
+        shape: BoxShape.rectangle,
+        color: const Color(0xFFFFFF),
+        borderRadius: new BorderRadius.all(
+          new Radius.circular(32.0),
+        ),
+      ),
+      child: new Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: <Widget>[
+          // dialog top
+          Icon(
+            Icons.check_circle_rounded,
+            color: Colors.green,
+            size: 48,
+          ),
+          new Container(
+            // padding: new EdgeInsets.all(10.0),
+            decoration: new BoxDecoration(
+              color: Colors.white,
+            ),
+            child: new Text(
+              'Successful',
+              style: TextStyle(
+                color: Colors.black,
+                fontSize: 18.0,
+                fontFamily: 'helvetica_neue_light',
+              ),
+              textAlign: TextAlign.center,
+            ),
+          ),
+          spacerH16,
+
+          // dialog centre
+          new Expanded(
+            child: new Container(
+              child: Text(
+                'Your password has been changed successfully',
+                style: TextStyle(
+                  color: Colors.grey[600],
+                  fontSize: 18.0,
+                  fontFamily: 'helvetica_neue_light',
+                ),
+                textAlign: TextAlign.center,
+              ),
+            ),
+            flex: 2,
+          ),
+
+          // dialog bottom
+          new Expanded(
+            child: Center(
+              child: FlatButton(
+                height: double.infinity,
+                minWidth: 700,
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                color: blue,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(8),
+                ),
+                child: Text(
+                  'Continue',
+                  style: TextStyle(
+                    color: Colors.white,
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ],
+      ),
+    ),
+  );
 }
