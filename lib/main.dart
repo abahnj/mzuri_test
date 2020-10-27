@@ -235,72 +235,74 @@ class _PersonalDetailsState extends State<PersonalDetails> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-        child: Container(
-          decoration: BoxDecoration(
-            border: Border(
-              top: BorderSide(
-                width: 2,
-                color: Color(0xfff5a623),
+        child: SingleChildScrollView(
+          child: Container(
+            decoration: BoxDecoration(
+              border: Border(
+                top: BorderSide(
+                  width: 2,
+                  color: Color(0xfff5a623),
+                ),
               ),
             ),
-          ),
-          child: Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                editAppBar(context, enabled, () {
-                  setState(() {
-                    enabled = !enabled;
-                  });
-                }),
-                spacerH32,
-                Text(
-                  'Personal Details',
-                  style: titleStyle,
-                ),
-                spacerH32,
-                MzuriTextField(
-                  enabled: enabled,
-                  title: 'Name',
-                  text: 'Thomas Olatunji',
-                ),
-                spacerH32,
-                MzuriTextField(
-                  enabled: enabled,
-                  title: 'Email',
-                  text: 'Thomas.Olatunji@gmail.com',
-                ),
-                spacerH32,
-                MzuriTextField(
-                  enabled: enabled,
-                  title: 'Phone Number',
-                  text: '08034229212',
-                ),
-                spacerH32,
-                spacerH32,
-                if (enabled)
-                  Container(
-                    width: double.infinity,
-                    child: FlatButton(
-                      onPressed: () {
-                        setState(() {
-                          enabled = !enabled;
-                        });
-                      },
-                      color: blue,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                      child: Text(
-                        'Save',
-                        style: TextStyle(
-                          color: Colors.white,
+            child: Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  editAppBar(context, enabled, () {
+                    setState(() {
+                      enabled = !enabled;
+                    });
+                  }),
+                  spacerH32,
+                  Text(
+                    'Personal Details',
+                    style: titleStyle,
+                  ),
+                  spacerH32,
+                  MzuriTextField(
+                    enabled: enabled,
+                    title: 'Name',
+                    text: 'Thomas Olatunji',
+                  ),
+                  spacerH32,
+                  MzuriTextField(
+                    enabled: enabled,
+                    title: 'Email',
+                    text: 'Thomas.Olatunji@gmail.com',
+                  ),
+                  spacerH32,
+                  MzuriTextField(
+                    enabled: enabled,
+                    title: 'Phone Number',
+                    text: '08034229212',
+                  ),
+                  spacerH32,
+                  spacerH32,
+                  if (enabled)
+                    Container(
+                      width: double.infinity,
+                      child: FlatButton(
+                        onPressed: () {
+                          setState(() {
+                            enabled = !enabled;
+                          });
+                        },
+                        color: blue,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                        child: Text(
+                          'Save',
+                          style: TextStyle(
+                            color: Colors.white,
+                          ),
                         ),
                       ),
-                    ),
-                  )
-              ],
+                    )
+                ],
+              ),
             ),
           ),
         ),
@@ -705,70 +707,72 @@ class ChangePassword extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-        child: Container(
-          decoration: BoxDecoration(
-            border: Border(
-              top: BorderSide(
-                width: 2,
-                color: Color(0xfff5a623),
+        child: SingleChildScrollView(
+          child: Container(
+            decoration: BoxDecoration(
+              border: Border(
+                top: BorderSide(
+                  width: 2,
+                  color: Color(0xfff5a623),
+                ),
               ),
             ),
-          ),
-          child: Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                editAppBar(context, true, () {}),
-                spacerH32,
-                Text(
-                  'Change Password',
-                  style: titleStyle,
-                ),
-                spacerH32,
-                MzuriTextField(
-                  enabled: true,
-                  title: 'Old Password',
-                  isPassword: true,
-                ),
-                spacerH32,
-                MzuriTextField(
-                  enabled: true,
-                  title: 'New Password',
-                  isPassword: true,
-                ),
-                spacerH32,
-                MzuriTextField(
-                  enabled: true,
-                  title: 'Confirm Password',
-                  isPassword: true,
-                ),
-                spacerH32,
-                spacerH32,
-                Container(
-                  width: double.infinity,
-                  child: FlatButton(
-                    onPressed: () {
-                      showDialog(
-                          context: context,
-                          builder: (context) {
-                            log(MediaQuery.of(context).size.width.toString());
-                            return _showAlert(context);
-                          });
-                    },
-                    color: blue,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                    child: Text(
-                      'Change Password',
-                      style: TextStyle(
-                        color: Colors.white,
+            child: Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  editAppBar(context, true, () {}),
+                  spacerH32,
+                  Text(
+                    'Change Password',
+                    style: titleStyle,
+                  ),
+                  spacerH32,
+                  MzuriTextField(
+                    enabled: true,
+                    title: 'Old Password',
+                    isPassword: true,
+                  ),
+                  spacerH32,
+                  MzuriTextField(
+                    enabled: true,
+                    title: 'New Password',
+                    isPassword: true,
+                  ),
+                  spacerH32,
+                  MzuriTextField(
+                    enabled: true,
+                    title: 'Confirm Password',
+                    isPassword: true,
+                  ),
+                  spacerH32,
+                  spacerH32,
+                  Container(
+                    width: double.infinity,
+                    child: FlatButton(
+                      onPressed: () {
+                        showDialog(
+                            context: context,
+                            builder: (context) {
+                              log(MediaQuery.of(context).size.width.toString());
+                              return _showAlert(context);
+                            });
+                      },
+                      color: blue,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      child: Text(
+                        'Change Password',
+                        style: TextStyle(
+                          color: Colors.white,
+                        ),
                       ),
                     ),
-                  ),
-                )
-              ],
+                  )
+                ],
+              ),
             ),
           ),
         ),
