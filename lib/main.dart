@@ -363,7 +363,7 @@ class MzuriTextField extends StatelessWidget {
           enabled: enabled,
           suffixIcon: trailing ? Icon(Icons.keyboard_arrow_down) : null),
       controller: TextEditingController()..text = text,
-      obscureText: true,
+      obscureText: isPassword ? true : false,
     );
   }
 }
